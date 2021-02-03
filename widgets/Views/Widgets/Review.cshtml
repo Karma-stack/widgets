@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Review";
+}
+
+<style>
+    .center-cont{
+        width:100%;
+        height:calc(100vh - 100px);
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    button, span {
+        font-weight: 500;
+    }
+    button {
+        margin: 10px;
+        border: 0;
+        border-radius: 5px;
+        min-width: 200px;
+    }
+    p{
+        color: rgba(0, 0, 0, 0.50);
+        font-weight:500;
+    }
+</style>
+
+<div style="text-align:center">
+
+
+    <div class="center-cont" style="margin:0px auto">
+        <p>Оставьте свой отзыв</p>
+        <button style="background-color:#ffe659;"><span style="color: #f00;">Я</span>ндекс</button>
+        <button style="background-color:#5464f1; color:white">Google</button>
+        <button style="background-color:#86ed5a;"><span style="color: #fff;">2</span>ГИС</button>
+    </div>
+
+</div>
+
+
+
+
+@*<div class="text-center">
+    <a asp-area="" asp-controller="Home" asp-action="SendEmailDefault">Отправить сообщение через System.Net.Mail</a>
+
+</div>
+<div class="text-center">
+    <a asp-area="" asp-controller="Home" asp-action="SendEmailCustom">Отправить сообщение через MailKit</a>
+</div>*@
