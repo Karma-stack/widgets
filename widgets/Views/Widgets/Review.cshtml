@@ -1,21 +1,23 @@
-﻿@{
+﻿@model IEnumerable<widgets.Models.WidgetViewModel>
+
+@{
     ViewData["Title"] = "Review";
 }
 
 <style>
     .center-cont{
         width:100%;
-        height:calc(100vh - 100px);
+        height:calc(100vh - 200px);
         display:flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
 
-    button, span {
+    a, span {
         font-weight: 500;
     }
-    button {
+    a {
         margin: 10px;
         border: 0;
         border-radius: 5px;
@@ -29,23 +31,23 @@
 
 <div style="text-align:center">
 
-
+    @foreach (var link in Model)
+    {
     <div class="center-cont" style="margin:0px auto">
         <p>Оставьте свой отзыв</p>
-        <button style="background-color:#ffe659;"><span style="color: #f00;">Я</span>ндекс</button>
-        <button style="background-color:#5464f1; color:white">Google</button>
-        <button style="background-color:#86ed5a;"><span style="color: #fff;">2</span>ГИС</button>
-    </div>
-
+        @if (link.Yandex != "" && link.Yandex != null)
+        {
+            <a href="@link.Yandex" class="btn" style="background-color:#ffe659;"><span style="color: #f00;">Я</span>ндекс</a>
+        }
+        @if (link.Google != "" && link.Google != null)
+        {
+            <a href="@link.Google" class="btn"  style="background-color:#5464f1; color:white">Google</a>
+        }
+        @if (link.TwoGIS != "" && link.TwoGIS != null)
+        {
+            <a href="@link.TwoGIS" class="btn" style="background-color:#86ed5a;"><span style="color: #fff;">2</span>ГИС</a>
+        }
+        
+        </div>
+        }
 </div>
-
-
-
-
-@*<div class="text-center">
-    <a asp-area="" asp-controller="Home" asp-action="SendEmailDefault">Отправить сообщение через System.Net.Mail</a>
-
-</div>
-<div class="text-center">
-    <a asp-area="" asp-controller="Home" asp-action="SendEmailCustom">Отправить сообщение через MailKit</a>
-</div>*@

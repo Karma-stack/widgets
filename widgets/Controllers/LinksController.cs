@@ -13,19 +13,19 @@ namespace widgets.Controllers
     public class LinksController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IUrlShortener _urlShortener;
+        private readonly IUrlGenerator _urlGenerator;
 
-        public LinksController(ApplicationDbContext dbContext, IUrlShortener urlShortener)
+        public LinksController(ApplicationDbContext dbContext, IUrlGenerator urlGenerator)
         {
             _dbContext = dbContext;
-            _urlShortener = urlShortener;
+            _urlGenerator = urlGenerator;
         }
 
         [Route("{shortLink}")]
         public async Task<IActionResult> Link(string shortLink)
         {
-            int linkId = _urlShortener.Decode(shortLink);
-            var link = await _dbContext.Links.FindAsync(linkId);
+            int linkId = _urlGenerator.Decode(shortLink);
+            var link = await _dbContext.Widgets.FindAsync(linkId);
 
             if (link == null)
                 return NotFound(new { shortLink });
@@ -33,10 +33,10 @@ namespace widgets.Controllers
             try
             {
                 link.CountConversion += 1;
-                _dbContext.Links.Update(link);
+                _dbContext.Widgets.Update(link);
                 await _dbContext.SaveChangesAsync();
-                
-                return Redirect(link.LongUrl);
+
+                return RedirectToAction("Rating","Widgets", new { link.Link });
             }
             catch
             {
@@ -51,7 +51,7 @@ namespace widgets.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromForm]LinkViewModel model)
+        public async Task<IActionResult> Add([FromForm]WidgetViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -60,21 +60,28 @@ namespace widgets.Controllers
 
             try
             {
-                var lastLink = _dbContext.Links.OrderBy(f => f.Id).LastOrDefault();
-                var link = new Link()
+                var lastWidget = _dbContext.Widgets.OrderBy(f => f.Id).LastOrDefault();
+                var widget = new Widget()
                 {
-                    LongUrl = model.LongUrl,
+                    //LongUrl = model.LongUrl,
+                    Name = model.Name,
                     CreatedDate = DateTime.UtcNow,
+                    Yandex = model.Yandex,
+                    Google = model.Google,
+                    TwoGIS = model.TwoGIS
                 };
 
-                if (lastLink != null)
-                    link.Id = lastLink.Id + new Random().Next(1, 100);
+                if (lastWidget != null)
+                    widget.Id = lastWidget.Id + 1;
 
-                _dbContext.Links.Add(link);
+
+
+
+                _dbContext.Widgets.Add(widget);
                 await _dbContext.SaveChangesAsync();
 
-                link.ShortUrl = _urlShortener.Encode(link.Id);
-                _dbContext.Update(link);
+                widget.Link = _urlGenerator.Encode(widget.Id);
+                _dbContext.Update(widget);
                 await _dbContext.SaveChangesAsync();
 
                 return RedirectToAction(nameof(HomeController.Index), this.UrlName<HomeController>());
@@ -104,7 +111,7 @@ namespace widgets.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [FromForm]LinkViewModel model)
+        public async Task<IActionResult> Edit(int id, [FromForm] LinkViewModel model)
         {
             if (!ModelState.IsValid)
             {

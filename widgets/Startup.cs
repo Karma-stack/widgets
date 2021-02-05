@@ -46,7 +46,7 @@ namespace widgets
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddSingleton<IUrlShortener, UrlShortener>();
+            services.AddSingleton<IUrlGenerator, UrlGenerator>();
             services.AddControllersWithViews();
         }
 

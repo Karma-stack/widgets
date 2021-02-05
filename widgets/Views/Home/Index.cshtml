@@ -1,18 +1,24 @@
-﻿@model IEnumerable<widgets.Models.LinkViewModel>
+﻿@model IEnumerable<widgets.Models.WidgetViewModel>
 @{
     ViewData["Title"] = "Widgets";
 }
+
+<style>
+    .btn {
+        box-shadow: 4px 4px 50px 0px rgba(34, 60, 80, 0.2);
+    }
+    .center {
+        margin: 0px auto;
+    }
+</style>
 
 <div class="container">
     <p class="h2 text-center">Widgets</p>
     <p class="lead text-center">Создайте новый виджет для отзывов</p>
     <div class="row">
-        <div class="col-md-5 col-sm-2 col-1">
-        </div>
-        <div class="col-md-2 col-sm-8 col-10">
-            <a asp-controller="Links" asp-action="Add" class="btn btn-primary btn-lg btn-block" style="font-size: 16px">Добавить виджет</a>
-        </div>
-        <div class="col-md-5 col-sm-2 col-1">
+        <div class="center">
+            <a asp-controller="Links" asp-action="Add" class="btn btn-success btn-lg" style="font-size: 16px">Добавить виджет</a>
+            <a asp-controller="Home" asp-action="Reviews" class="btn btn-success btn-lg" style="font-size: 16px">Посмотреть отзывы</a>
         </div>
     </div>
     <br />
@@ -22,43 +28,46 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Длинный URL</th>
-                            <th scope="col">Сокращенный URL</th>
+                            <th scope="col">Номер</th>
+                            <th scope="col">Название</th>
+                            <th scope="col">URL виджета</th>
                             <th scope="col">Дата создания</th>
                             <th scope="col">Кол-во переходов</th>
-                            <th scope="col">Действие</th>
+                            @*<th scope="col">Действие</th>*@
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var link in Model)
                         {
-                            <tr id="row-@link.Id">
-                                <td>@link.LongUrl</td>
-                                <td><a href="https://@link.ShortUrl" target="_blank">@link.ShortUrl</a></td>
-                                <td>@link.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
-                                <td>@link.CountConversion</td>
-                                <td>
-                                    <div class="btn-group" role="group">
-                                        <a asp-controller="Links" asp-action="Edit" asp-route-id="@link.Id" class="btn">Изменить</a>
-                                        <button onclick="removeLink(@link.Id);" type="button" class="btn btn-secondary">Удалить</button>
-                                    </div>
-                                </td>
-                            </tr>
+                        <tr id="row-@link.Id">
+                            <td>@link.Id</td>
+                            <td>@link.Name</td>
+                            <td><a href="https://@link.Link" target="_blank">@link.Link</a></td>
+                            <td>@link.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>@link.CountConversion</td>
+                            @*<td>
+            <div class="btn-group" role="group">
+                <a asp-controller="Links" asp-action="Edit" asp-route-id="@link.Id" class="btn">Изменить</a>
+                <button onclick="removeLink(@link.Id);" type="button" class="btn btn-secondary">Удалить</button>
+            </div>
+        </td>*@
+                        </tr>
                         }
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
 </div>
 
-@section Scripts{
+@*@section Scripts{
     <script type="text/javascript">
         function removeLink(id) {
             var result = confirm("Удалить?");
             if (result) {
                 var request = new XMLHttpRequest();
-                request.open('DELETE', 'Links/Delete?id=' + id, true);
+                request.open('DELETE', 'Widgets/Delete?id=' + id, true);
 
                 request.addEventListener('readystatechange', function () {
                     if ((request.readyState == 4) && (request.status == 200)) {
@@ -72,4 +81,4 @@
             }
         }
     </script>
-}
+}*@

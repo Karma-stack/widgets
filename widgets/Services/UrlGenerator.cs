@@ -2,7 +2,7 @@
 
 namespace widgets.Services
 {
-    public class UrlShortener : IUrlShortener
+    public class UrlGenerator : IUrlGenerator
     {
         public static readonly string Alphabet = "LaPD8K6b5xZOsEQjYwUMyN7qvmHtJudo4cki2I39lFXSneg0RGAVpBChfWTz1r";
         public static readonly int Base = Alphabet.Length;

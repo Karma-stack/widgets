@@ -16,17 +16,30 @@ namespace widgets.Controllers
         {
             _dbContext = dbContext;
         }
-
         public async Task<IActionResult> Index()
         {
-            var links = await _dbContext.Links.AsNoTracking().OrderByDescending(f => f.CreatedDate)
-                .Select(f => new LinkViewModel()
+            var links = await _dbContext.Widgets.AsNoTracking().OrderByDescending(f => f.CreatedDate)
+                .Select(f => new WidgetViewModel()
                 {
                     Id = f.Id,
+                    Name = f.Name,
                     CreatedDate = f.CreatedDate,
-                    LongUrl = f.LongUrl,
-                    ShortUrl = $"{HttpContext.Request.Host}/{f.ShortUrl}",
+                    Link = $"{HttpContext.Request.Host}/{f.Link}",
                     CountConversion = f.CountConversion
+                }).ToListAsync();
+
+            return View(links);
+        }
+
+        public async Task<IActionResult> Reviews()
+        {
+            var links = await _dbContext.Reviews.AsNoTracking().OrderByDescending(f => f.CreatedDate)
+                .Select(f => new ReviewViewModel()
+                {
+                    Id = f.Id,
+                    review = f.review,
+                    TelNum = f.TelNum,
+                    CreatedDate = f.CreatedDate
                 }).ToListAsync();
 
             return View(links);

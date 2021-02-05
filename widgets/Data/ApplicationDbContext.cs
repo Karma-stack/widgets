@@ -8,6 +8,9 @@ namespace widgets.Data
     public class ApplicationDbContext : IdentityDbContext<User, Role, int>
     {
         public DbSet<Link> Links { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Widget> Widgets { get; set; }
+        public DbSet<Review> Reviews { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

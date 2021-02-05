@@ -1,15 +1,32 @@
-﻿@model widgets.Models.LinkViewModel
+﻿@model widgets.Models.WidgetViewModel
 @{
     ViewData["Title"] = "Link shortener";
 }
+<style>
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+
 
 <div class="container">
     <form method="post" asp-controller="Links" asp-action="Add">
-        <div class="form-group">
-            <label for="link">Ссылка</label>
-            <input asp-for="LongUrl" type="url" class="form-control" placeholder="http://">
+        <div class=" form-group">
+            <label for="link">Название</label>
+            <input asp-for="Name" type="text" class="form-control">
+            <label for="link">Яндекс</label>
+            <input asp-for="Yandex" type="url" class="form-control" placeholder="http://">
+            <label for="link">Google</label>
+            <input asp-for="Google" type="url" class="form-control" placeholder="http://">
+            <label for="link">2ГИС</label>
+            <input asp-for="TwoGIS" type="url" class="form-control" placeholder="http://">
             <div asp-validation-summary="All" class="text-danger"></div>
         </div>
-        <button type="submit" class="btn btn-primary">Сократить</button>
+        <div class="center">
+            <button type="submit" class="btn btn-primary">Получить ссылку</button>
+        </div>
     </form>
 </div>

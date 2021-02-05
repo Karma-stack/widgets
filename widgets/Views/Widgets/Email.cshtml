@@ -3,19 +3,20 @@
 }
 
 <style>
-    label{
-        font-size:14px;
-        color:#101010;
+    label {
+        font-size: 14px;
+        color: #101010;
     }
-    input{
-        min-width:250px
+
+    input {
+        min-width: 250px
     }
 </style>
 
 <div style="text-align:center">
 
     <div style="margin:0px auto">
-        <form method="post" asp-controller="Widgets" asp-action="SendEmailDefault">
+        <form method="post" asp-controller="Widgets" asp-route-link="@Context.Request.Query["Link"]" asp-action="SendEmail">
             <p style="margin-bottom:15px;font-size:18px; min-width:300px">Пожалуйста, оставьте свой отзыв и мы разберемся в проблеме</p>
             <div>
                 <label for="review">Опишите визит</label><br />
@@ -26,11 +27,11 @@
             <div>
                 <label for="tel">Телефон</label><br />
                 <input type="text" name="tel" placeholder="+ 7 900 600 000" />
+                <input class="link" style="display:none"/>
             </div>
             <p style="font-size:10px; color:#202020">Для обратной связи и получения бонусов/подарков</p>
 
-            <input type="submit" class="btn btn-primary"  value="Отправить"/>
-            @*<a asp-area="" asp-controller="Home" asp-action="SendEmailDefault" class="btn btn-primary">Отправить</a>*@
+            <input id="link" type="submit" class="btn btn-primary" value="Отправить" />
         </form>
     </div>
 </div>

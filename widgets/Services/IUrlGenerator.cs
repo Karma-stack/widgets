@@ -1,6 +1,6 @@
 ﻿namespace widgets.Services
 {
-    public interface IUrlShortener
+    public interface IUrlGenerator
     {
         string Encode(int id);
         int Decode(string shortLink);

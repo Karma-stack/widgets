@@ -1,0 +1,36 @@
+﻿@model IEnumerable<widgets.Models.ReviewViewModel>
+@{
+    ViewData["Title"] = "Widgets";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Номер</th>
+                            <th scope="col">Отзыв</th>
+                            <th scope="col">Номер телефона</th>
+                            <th scope="col">Дата создания</th>
+                            @*<th scope="col">Действие</th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var obj in Model)
+                        {
+                        <tr id="row-@obj.Id">
+                            <td>@obj.Id</td>
+                            <td>@obj.review</td>
+                            <td>@obj.TelNum</td>
+                            <td>@obj.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
