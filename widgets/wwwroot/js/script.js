@@ -4,6 +4,10 @@ if (ratings.length > 0) {
     initRatings();
 }
 
+document.querySelector("form").addEventListener("submit", (e) => {
+    document.getElementById("email-form").style.display = "none";
+    document.getElementById("congrats").style.display = "";
+})
 
 function initRatings() {
     let ratingActive, ratingValue;
@@ -48,12 +52,17 @@ function initRatings() {
                 ratingValue.innerHTML = ratingItem.value;
                 setRatingActiveWidth(ratingItem.value);
                 if (ratingValue.innerText == 5) {
-                    document.location.replace(`https://localhost:5001/Widgets/Review${document.location.search}`);
+                    //document.location.replace(`https://localhost:5001/Widgets/Review${document.location.search}`);
+                    document.getElementById("rating").style.display = "none";
+                    document.getElementById("mapLinks").style.display = "";
                 }
                 else {
-                    document.location.replace(`https://localhost:5001/Widgets/Email${document.location.search}`);
+                    //document.location.replace(`https://localhost:5001/Widgets/Email${document.location.search}`);
+                    document.getElementById("rating").style.display = "none";
+                    document.getElementById("email-form").style.display = "";
                 }
             })
         }
     }
+
 }

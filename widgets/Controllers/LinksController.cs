@@ -21,7 +21,7 @@ namespace widgets.Controllers
             _urlGenerator = urlGenerator;
         }
 
-        [Route("{shortLink}")]
+        //[Route("{shortLink}")]
         public async Task<IActionResult> Link(string shortLink)
         {
             int linkId = _urlGenerator.Decode(shortLink);

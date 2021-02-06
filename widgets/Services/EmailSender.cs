@@ -21,13 +21,13 @@ namespace widgets
         }
 
 
-        public async void SendEmail(string review, string tel,string param)
+        public async void SendEmail(string review, string tel,int param)
         {
             try
             {
-                logger.LogDebug(param);
-                int linkId = _urlGenerator.Decode(param);
-                var link = await _dbContext.Widgets.FindAsync(linkId);
+                logger.LogDebug(param.ToString());
+
+                var link = await _dbContext.Widgets.FindAsync(param);
                 MailMessage message = new MailMessage();
                 message.IsBodyHtml = true;
                 message.From = new MailAddress("2000.timati@mail.com", "Tima");

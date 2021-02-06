@@ -1,4 +1,5 @@
-﻿@{
+﻿@model widgets.Models.WidgetViewModel
+@{
     ViewData["Title"] = "Rating";
 }
 <style>
@@ -7,6 +8,7 @@
         justify-content: center;
         align-items: center;
     }
+
     .rating {
         display: flex;
         align-items: flex-end;
@@ -63,11 +65,37 @@
     .rating_value {
         font-size: 70%;
         line-height: 1;
-        padding-left:10px;
+        padding-left: 10px;
     }
+
+    .center-cont {
+        width: 100%;
+        height: calc(100vh - 200px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    a, span {
+        font-weight: 500;
+    }
+
+    a {
+        margin: 10px;
+        border: 0;
+        border-radius: 5px;
+        min-width: 200px;
+    }
+
+    #mapLinks p {
+        color: rgba(0, 0, 0, 0.50);
+        font-weight: 500;
+    }
+
 </style>
 <div class="container">
-    <div class="rating rating_set">
+    <div class="rating rating_set" id="rating">
         <div class="rating_body">
             <div class="rating_active"></div>
 
@@ -82,5 +110,75 @@
         </div>
         <div class="rating_value">1</div>
     </div>
+
+    <div style="text-align:center">
+
+        <div id="email-form" style="display:none;margin:0px auto">
+            <form method="post" asp-controller="Widgets" asp-route-id="@Model.Id" asp-action="SendEmail">
+
+                <p style="margin-bottom:15px;font-size:18px; min-width:300px">Пожалуйста, оставьте свой отзыв и мы разберемся в проблеме</p>
+                <div>
+                    <label for="review">Опишите визит</label><br />
+                    <input style="margin-bottom: 10px" type="text" id="review" name="review" />
+
+                </div>
+                <br />
+                <div>
+                    <label for="tel">Телефон</label><br />
+                    <input type="text" id="tel" name="tel" placeholder="+ 7 900 600 000" />
+                    <input class="link" style="display:none" />
+                </div>
+                <p style="font-size:10px; color:#202020">Для обратной связи и получения бонусов/подарков</p>
+
+                <input id="link" type="submit" class="btn btn-primary" value="Отправить" />
+            </form>
+        </div>
+    </div>
+
+
+    <div id="mapLinks" style="margin: 0px auto; display:none">
+
+        <div id="mapLinks" class="center-cont" style="margin:0px auto">
+            <p>Оставьте свой отзыв</p>
+            @if (!string.IsNullOrEmpty(Model.Yandex))
+            {
+                <a href="@Model.Yandex" class="btn" style="background-color:#ffe659;"><span style="color: #f00;">Я</span>ндекс</a>
+            }
+            @if (Model.Google != "" && Model.Google != null)
+            {
+                <a href="@Model.Google" class="btn" style="background-color:#5464f1; color:white">Google</a>
+            }
+            @if (Model.TwoGIS != "" && Model.TwoGIS != null)
+            {
+                <a href="@Model.TwoGIS" class="btn" style="background-color:#86ed5a;"><span style="color: #fff;">2</span>ГИС</a>
+            }
+
+        </div>
+    </div>
+
+    <div id="congrats" style="display: none; text-align:center">
+        <h2 style="margin: 0px auto">
+            Спасибо!
+        </h2>
+        <h4>Ваш отзыв очень важен для нас</h4>
+    </div>
+
+
 </div>
 <script src="~/js/script.js"></script>
+@*<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>*@
+
+@*@section Scripts{
+    <script type="text/javascript">
+        $("#link").click(function (e) {
+            var url = "/Widgets/SendEmail";
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                contentType: "application/json",
+                data: JSON.stringify({ review: $("#review").val, TelNum: $("#tel").val })
+            });
+        });
+</script>
+ }*@

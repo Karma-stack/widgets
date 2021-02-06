@@ -26,9 +26,16 @@ namespace widgets.Controllers
             this.service = service;
         }
 
-        public IActionResult Rating()
+        [Route("{query}")]
+        public async Task<IActionResult> Rating(string query)
         {
-            return View();
+            int linkId = _urlGenerator.Decode(query);
+            var link = await _dbContext.Widgets.FindAsync(linkId);
+
+            if (link == null)
+                return NotFound(new { query });
+
+            return View(new WidgetViewModel() { Id = link.Id ,Yandex = link.Yandex,Google = link.Google, TwoGIS = link.TwoGIS });
         }
 
         public async Task<IActionResult> Review()
@@ -51,11 +58,10 @@ namespace widgets.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SendEmail(string review, string tel, string link)
+        public async Task<IActionResult> SendEmail(string review, string tel,int id)
         {
             try
             {
-                var lastReview = _dbContext.Reviews.OrderBy(f => f.Id).LastOrDefault();
                 var reviews = new Review()
                 {
                     review = review,
@@ -63,14 +69,11 @@ namespace widgets.Controllers
                     TelNum = tel
                 };
 
-                if (lastReview != null)
-                    reviews.Id = lastReview.Id + 1;
-
                 _dbContext.Reviews.Add(reviews);
                 await _dbContext.SaveChangesAsync();
 
-                service.SendEmail(review, tel, link);
-                return RedirectToAction("Email");
+                service.SendEmail(review, tel, id);
+                return NoContent();
             }
             catch
             {

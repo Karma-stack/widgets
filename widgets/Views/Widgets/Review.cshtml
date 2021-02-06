@@ -35,7 +35,7 @@
     {
     <div class="center-cont" style="margin:0px auto">
         <p>Оставьте свой отзыв</p>
-        @if (link.Yandex != "" && link.Yandex != null)
+        @if (!string.IsNullOrEmpty(link.Yandex))
         {
             <a href="@link.Yandex" class="btn" style="background-color:#ffe659;"><span style="color: #f00;">Я</span>ндекс</a>
         }
