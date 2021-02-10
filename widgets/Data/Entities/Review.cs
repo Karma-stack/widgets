@@ -11,6 +11,7 @@ namespace widgets.Data.Entities
         public string review { get; set; }
         public string TelNum { get; set; }
         public DateTime CreatedDate { get; set; }
+        public virtual Widget Widget { get; set; }
 
     }
 }

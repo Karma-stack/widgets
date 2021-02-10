@@ -17,5 +17,6 @@ namespace widgets.Models
         public int CountConversion { get; set; }
         public DateTime CreatedDate { get; set; }
         public virtual User Users { get; set; }
+        public List<Review> Reviews { get; set; }
     }
 }

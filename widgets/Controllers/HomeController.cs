@@ -39,7 +39,8 @@ namespace widgets.Controllers
                     Id = f.Id,
                     review = f.review,
                     TelNum = f.TelNum,
-                    CreatedDate = f.CreatedDate
+                    CreatedDate = f.CreatedDate,
+                    Widget = f.Widget
                 }).ToListAsync();
 
             return View(links);

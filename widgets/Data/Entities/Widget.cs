@@ -17,6 +17,7 @@ namespace widgets.Data.Entities
         public int CountConversion { get; set; }
         public DateTime CreatedDate { get; set; }
         public virtual Users Users { get; set; }
+        public List<Review> Reviews { get; set; }
 
     }
 }

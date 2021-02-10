@@ -62,11 +62,15 @@ namespace widgets.Controllers
         {
             try
             {
+
+                var currentWidget = await _dbContext.Widgets.FindAsync(id);
+
                 var reviews = new Review()
                 {
                     review = review,
                     CreatedDate = DateTime.UtcNow,
-                    TelNum = tel
+                    TelNum = tel,
+                    Widget = currentWidget
                 };
 
                 _dbContext.Reviews.Add(reviews);

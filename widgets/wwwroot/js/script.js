@@ -1,12 +1,23 @@
 ﻿const ratings = document.querySelectorAll('.rating');
 
+if (window.localStorage.getItem('isRating')) {
+    document.getElementById("rating").style.display = "none";
+    document.getElementById("mapLinks").style.display = "none";
+    document.getElementById("email-form").style.display = "none";
+    document.getElementById("congrats").style.display = "";
+}
+
+console.log(localStorage.getItem('isRating'))
+
 if (ratings.length > 0) {
     initRatings();
 }
 
+
 document.querySelector("form").addEventListener("submit", (e) => {
     document.getElementById("email-form").style.display = "none";
     document.getElementById("congrats").style.display = "";
+    window.localStorage.setItem('isRating', 'true');
 })
 
 function initRatings() {
@@ -64,5 +75,7 @@ function initRatings() {
             })
         }
     }
+
+
 
 }

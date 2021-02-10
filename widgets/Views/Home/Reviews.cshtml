@@ -15,6 +15,7 @@
                             <th scope="col">Отзыв</th>
                             <th scope="col">Номер телефона</th>
                             <th scope="col">Дата создания</th>
+                            <th scope="col">Виджет</th>
                             @*<th scope="col">Действие</th>*@
                         </tr>
                     </thead>
@@ -26,6 +27,7 @@
                             <td>@obj.review</td>
                             <td>@obj.TelNum</td>
                             <td>@obj.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>@obj.Widget.Name</td>
                         </tr>
                         }
                     </tbody>
